@@ -4,18 +4,18 @@ const routes = [
         component: () => import('@/views/login')
     },
     {
+        // 壳
         path:　'/menu',
         component: () => import('@/views/menu'),
         children: [
             {
-                // 九宫格表
-                path: 'page',
-                component: () => import('@/views/page')
+                path: 'picking-process',
+                component: () => import('@/views/picking-process')
             },
             {
-                path: ''
+                path:'mass-zone',
+                component: () => import('@/views/mass-zon')
             }
-
         ]
     },
 ];

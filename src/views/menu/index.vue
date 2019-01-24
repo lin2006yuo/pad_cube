@@ -2,8 +2,12 @@
     <div class="p-menu">
         <!--头部-->
         <menu-header :warehouse="selectWarehouse" @menu-click="menuClick"></menu-header>
+        <!-- 九宫格 -->
+        <menu-content :items="menuItems"></menu-content>
         <!--中间内容-->
-        <router-view></router-view>
+        <transition name='slide'>
+            <router-view class="pages"></router-view>
+        </transition>
         <!--抽屉-->
         <cube-drawer
             ref="drawer"
@@ -18,6 +22,7 @@
     import MenuComponents from '@/components/menu'
     import { getWareHouse, getUserInfo } from "@/api/base";
     import storage from 'good-storage'
+    import { menuItems } from './menuItem'
 
 
     export default {
@@ -26,6 +31,7 @@
           return {
               selectWarehouse: '',
               warehouseData: [[]],
+              menuItems: menuItems
           }
         },
         mounted() {
@@ -80,5 +86,12 @@
         bottom: 0;
         right: 0;
         background-color: #f5f5f5;
+        .pages {
+            position fixed;
+            left 0;
+            top 40px
+            right 0;
+            bottom 0
+        }
     }
 </style>

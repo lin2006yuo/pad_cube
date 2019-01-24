@@ -79,15 +79,9 @@
         }
         >>> .cube-input_active {
             &:after {
-<<<<<<< HEAD
                 border-color: $input-focus-border-color 
             }
             .cubeic-person,  .cubeic-lock, cubeic-info{
-=======
-                border-bottom: 1px solid $input-focus-border-color
-            }
-            .cubeic-person, .cubeic-lock, .cubeic-info{
->>>>>>> 8fc7080591da90c7d8d5d41a75af489695036da9
                 color: $input-focus-border-color
             }
         }

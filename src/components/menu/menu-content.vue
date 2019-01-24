@@ -1,7 +1,8 @@
 <template>
     <div class="c-menu-content">
-        <div class="squares" v-for="(row, index) in splitItem" :key="`row-${index}`">
-            <div class="square" v-for="(item, index) in row" :key="`square-${index}`">
+        <div class="squares" v-for="(row, rowIndex) in splitItem" :key="`row-${rowIndex}`">
+            <!-- item -->
+            <div class="square" :class="{active: `${rowIndex}_${index}` === activeIndex}" v-for="(item, index) in row" :key="`square-${index}`" @click="routerLink(item.path, `${rowIndex}_${index}`)">
                 <svg class="svg-icon">
                     <use :xlink:href="`#icon-${item.icon}`"></use>
                 </svg>
@@ -16,6 +17,11 @@
 
     export default {
         name: "menuContent",
+        data() {
+            return {
+                activeIndex: ''
+            }
+        },
         props: {
             items: {
                 type: Array,
@@ -23,6 +29,7 @@
             }
         },
         computed: {
+            // 一维数组转二维数组
             splitItem() {
                 let len = this.items.length;
                 let rowNum = len % 4 === 0 ? len / 4 : Math.floor( (len / 4) + 1 );
@@ -34,9 +41,10 @@
                 return ret
             }
         },
-        watch: {
-            splitItem() {
-                console.log(1)
+        methods: {
+            routerLink(path, index) {
+                this.$router.push({ path: `/menu${path}` })
+                this.activeIndex = index
             }
         }
     }
