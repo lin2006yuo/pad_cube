@@ -43,7 +43,7 @@
         },
         methods: {
             routerLink(path, index) {
-                this.$router.push({ path: `/menu${path}` })
+                this.$emit('link-to', path);
                 this.activeIndex = index
             }
         }

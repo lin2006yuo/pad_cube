@@ -1,9 +1,8 @@
 <template>
     <div class="c-menu-header">
-        <span v-show='showBack' class="menu-btn back" @click="back"><i class="cubeic-back"></i></span>        
+        <span v-show='showBack' class="menu-btn back" @click="back"><i class="cubeic-back"></i></span>
         {{warehouse}}
-        <span v-show='!showBack' class="menu-btn home" @click="menuClick"><i class="cubeic-home"></i></span>
-        <span v-show='showBack' class="menu-btn home" @click="itemClick"><i class="cubeic-home"></i></span>
+        <span  class="menu-btn home" @click="menuClick"><i class="cubeic-home"></i></span>
     </div>
 </template>
 
@@ -17,7 +16,6 @@
                 require: true
             }
         },
-        mounted() { console.log(this.$route) },
         methods: {
             menuClick() {
                 this.$emit('menu-click')

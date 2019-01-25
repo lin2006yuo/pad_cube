@@ -1,8 +1,15 @@
   // item页面
   .c-page {
+    padding: 0 5px
     background-color #fff
   }
-  
+  .header-select {
+    margin: 3px 0;
+    padding 8px 0
+    background-color: $color-dark-grey-opacity;
+    border-radius 15px;
+    color #fff
+  }
   .icon-bg {
     font-size 36px
   }
@@ -11,8 +18,25 @@
   }
 
   .slide-enter-active, .slide-leave-active {
-    transition: transform .35s  
+    transition: transform .35s
   }
   .slide-enter, .slide-leave-to {
     transform: translate3d(100%, 0, 0)
   }
+
+  .slide-up-enter-active, .slide-up-leave-active {
+    transition: transform .35s
+  }
+  .slide-up-enter, .slide-up-leave-to {
+    transform: translate3d(0, -100%, 0)
+  }
+
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .35s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity 0
+  }
+
+

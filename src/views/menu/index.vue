@@ -3,7 +3,7 @@
         <!--头部-->
         <menu-header :warehouse="selectWarehouse" @menu-click="menuClick"></menu-header>
         <!-- 九宫格 -->
-        <menu-content :items="menuItems"></menu-content>
+        <menu-content :items="menuItems" @link-to="linkTo"></menu-content>
         <!--中间内容-->
         <transition name='slide'>
             <router-view class="pages"></router-view>
@@ -23,13 +23,14 @@
     import { getWareHouse, getUserInfo } from "@/api/base";
     import storage from 'good-storage'
     import { menuItems } from './menuItem'
-
+    import { mapMutations } from 'vuex'
 
     export default {
         name: "menu-index",
         data() {
           return {
               selectWarehouse: '',
+              selectWarehouseId: '',
               warehouseData: [[]],
               menuItems: menuItems
           }
@@ -43,8 +44,10 @@
                 this.$refs.drawer.show()
             },
             selectMenu(value, index, text) {
-                this.selectWarehouse = text[0];
-                storage.session.set('CURRENT_WAREHOUSE', {text: text[0], value: value[0]})
+                // this.selectWarehouse = text[0];
+                // this.selectWarehouseId = value[0];
+                // storage.session.set('CURRENT_WAREHOUSE', {text: text[0], value: value[0]})
+                this.setWarehouseData(this.warehouseData[0], index)
             },
             initWareHouse() {
                 getWareHouse().then(res => {
@@ -55,25 +58,31 @@
                         }
                     });
                     this.warehouseData[0] = warehouses;
-                    this.selectWarehouse = warehouses[0].text;
-                    storage.set('CURRENT_WAREHOUSE', warehouses[0])
+                    this.setWarehouseData(warehouses, 0)
                 }).catch(err => {
                     console.log(err.message)
                 })
+            },
+            setWarehouseData(warehouses, index) {
+                this.selectWarehouse = warehouses[index].text;
+                this.selectWarehouseId = warehouses[index].value;
+                storage.set('CURRENT_WAREHOUSE', warehouses[index]);
+                this.setWarehouseId({id: warehouses[index].value});
             },
             initUserInfo() {
                 getUserInfo().then(res => {
                     storage.session.set('USER_INFO', res)
                 })
             },
-            click() {
-                this.$router.push({
-                    path: 'menu/picking-process'
-                })
-            }
+            linkTo(path) {
+                this.$router.push({ path: `/menu${path}`, query: { wid:  this.selectWarehouseId} });
+            },
+            ...mapMutations([
+                'setWarehouseId'
+            ])
         },
         components: {
-            ...MenuComponents
+            ...MenuComponents,
         },
     }
 </script>
