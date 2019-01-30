@@ -1,21 +1,33 @@
 const routes = [
     {
+      path: '/',
+      redirect: '/menu'
+    },
+    {
         path: '/login',
         component: () => import('@/views/login')
     },
     {
-        // 壳
         path:　'/menu',
         component: () => import('@/views/menu'),
         children: [
             {
                 path: 'picking-process',
-                component: () => import('@/views/picking-process')
+                component: () => import('@/views/picking-process'),
+                children: [
+                    {
+                        path: 'picking-process-detail',
+                        component: () => import('@/views/picking-process/picking-process-detail'),
+                        children: [
+                            {
+                                name: 'detailSku',
+                                path: 'detail-sku',
+                                component: () => import('@/views/picking-process/detail-sku')
+                            }
+                        ]
+                    },
+                ]
             },
-            {
-                path:'mass-zone',
-                component: () => import('@/views/mass-zon')
-            }
         ]
     },
 ];

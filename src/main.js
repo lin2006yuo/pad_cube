@@ -8,6 +8,15 @@ import './common/stylus/index.styl'
 import './common/svg/iconfont'
 Vue.config.productionTip = false;
 
+import RaTable from '@/components/base/ra-table'
+import RaInfo from '@/components/base/ra-info'
+import RaLabelItem from '@/components/base/ra-label-item'
+
+
+Vue.component('RaTable', RaTable)
+Vue.component('RaInfo', RaInfo)
+Vue.component('LabelItem', RaLabelItem)
+
 new Vue({
   router,
   store,

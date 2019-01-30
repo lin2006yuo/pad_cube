@@ -50,6 +50,7 @@
                     loading.show();
                     login({...this.form, captcha: this.captcha}).then(res => {
                         this.showToast({txt: '登陆成功', type: 'Correct', time: 1000})
+                        this.$router.push({ path: '/menu' })
                     }).catch(err => {
                         this.showToast({txt: err.message, type: 'Error'}).show()
                     })
@@ -79,7 +80,7 @@
         }
         >>> .cube-input_active {
             &:after {
-                border-color: $input-focus-border-color 
+                border-color: $input-focus-border-color
             }
             .cubeic-person,  .cubeic-lock, cubeic-info{
                 color: $input-focus-border-color

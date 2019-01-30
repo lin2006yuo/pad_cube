@@ -1,7 +1,7 @@
 import fetch from './axios'
 
 export const getAuthCode = () => {
-    return fetch('/login/code','get', { headers: { responseType: 'blob' } })
+    return fetch('/login/code','get', { options: { responseType: 'blob' } })
 };
 
 export const login = (data) => {
@@ -12,4 +12,4 @@ export const getWareHouse = () => {
 };
 export const getUserInfo = () => {
     return fetch('/login/info')
-}
+};

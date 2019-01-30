@@ -5,7 +5,8 @@ import storage from 'good-storage'
 const baseUrl = 'https://office.rondaful.com';
 
 const validStatus = (res, cb) => {
-    if(res.status === 200) {
+    // console.log(res.status)
+    if(res.status=== 200) {
         //请求的是图片
         if(/image\/png/.test(res.headers['content-type'])) {
             return res
@@ -21,27 +22,28 @@ const validStatus = (res, cb) => {
 };
 
 
-const fetch = (url, method = 'get', { data, headers = {} } = {}, cb) => {
+const fetch = (url, method = 'get', { data, headers = {}, options = {} } = {}, cb) => {
     let token = storage.session.get('USER_TOKEN');
     let reqHeaders = {
         'Authorization': token,
         ...headers
     };
-    let options = {
+    let optionsMixin = {
         method,
         url: `${baseUrl}${url}`,
+        ...options,
         headers: reqHeaders
     };
     if(method === 'get') {
-      options.params = {
+        optionsMixin.params = {
           ...data, test: ''
       }
     } else {
-        options.data = {
+        optionsMixin.data = {
             ...data, test: ''
         }
     }
-    return axios(options).then(res => {
+    return axios(optionsMixin).then(res => {
         return validStatus(res, cb)
     }).catch(err => {
         return validStatus(err.response)
